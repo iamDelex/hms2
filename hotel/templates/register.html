@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+        <!-- The Login section -->
+        <section id="reg">
+            <div class="container-fluid">
+                <div class="reg">
+                    <div class="regbox1">
+                        <h1 class="text-center" style="color: var(--darkorange);"><b>Create An Account To Continue</b></h1>
+                        <div class="mt-4">
+                            <ul class="text-danger">
+                                <li><i class="fas fa-check-circle" style="color: var(--darkorange);"></i> Your password can't be too similar to your other personal information.
+                                <li><i class="fas fa-check-circle" style="color: var(--darkorange);"></i> Your password must contain at least 8 characters.
+                                <li><i class="fas fa-check-circle" style="color: var(--darkorange);"></i> Your password can't be a commonly used password.
+                                <li><i class="fas fa-check-circle" style="color: var(--darkorange);"></i> Your password can't be entirely numeric.
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="regbox2">
+                        <div class="container mb-3"><small>Welcome To Travel Tour Hotel </small></div>
+                        <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+                            <div class="mb-4">
+                              <!-- <label for="username">Username</label> -->
+                              <input type="text" name="username" class="form-control" id="" aria-describedby="emailHelp" placeholder="Username">
+                            </div>
+                            <div class="mb-4">
+                              <!-- <label for="username">Username</label> -->
+                              <input type="text" name="first_name" class="form-control" id="" aria-describedby="emailHelp" placeholder="First Name">
+                            </div>
+                            <div class="mb-4">
+                              <!-- <label for="username">Username</label> -->
+                              <input type="text" name="last_name" class="form-control" id="" aria-describedby="emailHelp" placeholder="Last Name">
+                            </div>
+                            <div class="mb-4">
+                              <!-- <label for="email">Email</label> -->
+                              <input type="email" name="email" class="form-control" id="" aria-describedby="emailHelp" placeholder="email@gmail.com">
+                            </div>
+                            <div class="">
+                                <!-- <label for="password1">Password</label> -->
+                              <input type="password" name="password1" class="form-control" id="" placeholder="Password">
+                            </div>
+                            <div class="mt-3">
+                                <!-- <label for="password2">Password Confirmation</label> -->
+                              <input type="password" name="password2" class="form-control" id="" placeholder="Password Confirmation">
+                            </div>
+                            <button type="submit" class="mt-4">Register</button>
+                            <button type="reset" class="mt-4">Reset</button>
+                            <div class="d-flex mt-3">
+                                <p>Already Have An Account? <a href="" style="color:var(--darkorange)"><b>Login</b></a></p>
+                            </div>
+                        </form>
+                        <div class="text-center copyright-section mt-5">
+                            &copy Travel Tour,  All Right Reserved <br>
+                            <small>By Signing up you agree to the travel tour <br> <a href="">Terms & Conditions</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- The Login section done -->
+{% endblock content %}
+    
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

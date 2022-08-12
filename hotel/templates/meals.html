@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %} |{{single.name}}{% endblock title %}
+    
+
+<!-- header section -->
+{% block header %}{% include "header.html" %}{% endblock header %}
+<!-- header section done -->
+
+<!-- banner section -->
+<!-- banner section done -->
+
+<!-- content section -->
+{% block content %}
+    <!-- box1 -->
+    <div class="container mt-4 mb-4">
+        <h1 class="meal_header">ALL MEALS</h1>
+        <div class="row">
+            <!-- breakfast -->
+            {% if meals %}
+                {% for item in meals %}
+                    <div class="col-12 col-sm-6 col-md mb-4 col-lg-3 w-25 mt-5 mb-3 text-center">
+                        <div class="card">
+                            <img src="{{item.image.url}}" class="card-img-top w-100 mt-5 mb-3">
+                            <div class="card-body text-center mb-4">
+                                <h5 class="card-title mb-3 text-dark font-weight-bolder">{{item.title}}</h5>
+                                <p class="card-text mb-4 text-success">
+                                    {% if item.discount %}
+                                        <del class="text-danger">{{item.price|floatformat:2|intcomma}}</del>
+                                        <span class="text-success">{{item.discount|floatformat:2|intcomma}}</span>
+                                    {% else %}
+                                        <span>{{item.price|floatformat:2|intcomma}}</span>
+                                    {% endif %}
+                                </p>
+                                <a href="{% url 'meal' item.id item.slug %} " class="about-us-btn" >Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- breakfast done -->
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
+<!-- content section done -->
+
+<!-- footer section  -->
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+<!-- footer section done -->
+    

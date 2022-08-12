@@ -1,0 +1,205 @@
+
+def meals(request):
+    meals = Meal.objects.all() #This is show casing all the meals we have in our DB.
+        
+    context = {
+        'meals':meals,
+    }
+    return render(request, 'meals.html', context)
+
+
+
+
+def meal(request, id,slug):
+    meal = Meal.objects.get(pk=id) #This is getting each meals by their specify ID. in this place, we use objects.get
+    
+    context = {
+        'meal':meal,    }
+    return render(request, 'meal.html', context)
+
+
+
+
+ 
+#add to cart
+@login_required(login_url='signin')
+def addtocart(request):
+    cartno = Profile.objects.get(user__username=request.user.username)
+    cart_code = cartno.id
+    if request.method == 'POST':
+        addquantity = int(request.POST['quantity'])
+        addid = request.POST['mealid']
+        mealid = Meal.objects.get(pk=addid)
+        addspicy = request.POST.get('spicy', None)
+        
+        
+        
+        cart = Shopcart.objects.filter(user__username=request.user.username,item_paid=False)
+        
+        if cart:  
+            more = Shopcart.objects.filter(meal_id=mealid.id,user__username=request.user.username).first()
+            if more:
+                more.quantity += addquantity
+                more.save()
+                messages.success(request, 'Product added to shopcart!')
+                return redirect('meals')
+            else:
+                newitem = Shopcart()
+                newitem.user = request.user
+                newitem.meal = mealid
+                newitem.quantity = addquantity
+                newitem.order_no = cart_code
+                newitem.item_paid = False
+                newitem.save()
+                messages.success(request, 'added!')
+                return redirect('meals')
+                
+        else: 
+            newcart = Shopcart()
+            newcart.user = request.user
+            newcart.meal = mealid
+            newcart.quantity = addquantity
+            newcart.order_no = cart_code
+            newcart.item_paid = False
+            newcart.save()
+            messages.success(request, f'Item has been added to your shopcart 🛒')
+            
+    return redirect('meals')
+
+
+#shopcart
+@login_required(login_url='signin')
+def cart(request):
+    cart =Shopcart.objects.filter(user__username=request.user.username, item_paid=False)
+    
+    total = 0
+    var = 0
+    subtotal = 0
+    
+    for item in cart:
+        if item.meal.discount:
+            subtotal += item.meal.discount * item.quantity
+        else:
+            subtotal += item.meal.price * item.quantity
+                        
+    var = 0.075 * subtotal # please note that, vat is at 7.5% of the subtotal, that is 75/100 * subtotal
+    total = var + subtotal   # Please note, Addition of vat and subtotal gives the total value to be charged
+    context = {
+        'cart':cart,
+        'subtotal':subtotal,
+        'var':var,
+        'total':total,    }
+    return render(request, 'cart.html',context)
+
+
+
+@login_required(login_url='signin')
+def remove_item(request): #This is the function to remove an item from the cart page.
+    deleteitem = request.POST['deleteitem']
+    Shopcart.objects.filter(pk=deleteitem).delete()
+    messages.success(request, 'Item successfully deleted from your shopcart')
+    return redirect('meals')
+
+
+
+@login_required(login_url='signin')
+def checkout(request):
+    cart = Shopcart.objects.filter(user__username=request.user.username,item_paid=False)
+    user_profile = Profile.objects.get(user__username=request.user.username)
+    total = 0
+    var = 0
+    subtotal = 0
+    
+    for item in cart:
+        if item.meal.discount:
+            subtotal += item.meal.discount * item.quantity
+        else:
+            subtotal += item.meal.price * item.quantity
+            
+    var = 0.075 * subtotal # please note that, vat is at 7.5% of the subtotal, that is 75/100 * subtotal
+    total = var + subtotal   # Please note, Addition of vat and subtotal gives the total value to be charged
+    context = {
+        'cart':cart,
+        'total':total,
+        'user_profile':user_profile,
+        # 'orderno': cart[0].order_no
+    }
+    return render(request, 'checkout.html', context)
+
+
+#shopcartdone
+
+
+
+#placeorder
+@login_required(login_url='signin')
+def placeorder(request):
+    if request.method == 'POST':
+        #collect data to send to paystack.
+        # the api_key(registration programming interface key) and curl will be sourced from paystack site, 
+        # paystack will give text secret key for testing, when you want to go liv, paystack will give live key.
+        # cburl (callback url),total,ref_num,order_num,email provided by me in my application, 
+        api_key = 'sk_test_1690919ca38995c567f6aa2748e35877709b5ff4' #This is from paystack
+        curl = 'https://api.paystack.co/transaction/initialize' #This is from paystack Api documentation
+        cburl = 'http://127.0.0.1:8000/paidorder' #This ip '54.86.10.239' address is from the one i got from AWS.
+        # cburl = 'http://localhost:8000/paidorder'
+        ref_num = str(uuid.uuid4())
+        total = float(request.POST['get_total']) * 100
+        phone = request.POST['phone']
+        address = request.POST['address']
+        state = request.POST['state']
+        cartno = Profile.objects.get(user__username=request.user.username)
+        order_num = cartno.id
+        # order_num = request.POST['get_orderno']
+        user = User.objects.get(username = request.user.username)
+        
+        
+        headers = {'Authorization': f'Bearer {api_key}'}
+        data = {'reference':ref_num, 'order_number':order_num, 'amount':int(total), 'callback_url':cburl, 'email':user.email, 'currency':'NGN'}
+        #collect data to send to paystack done.
+        
+        #call to paystack
+        try:
+            r = requests.post(curl,headers=headers, json=data)
+        except Exception:
+            messages.error(request, 'Network busy, please refresh and try again. Thank You.')   
+        else:
+            transback = json.loads(r.text)
+            rd_url = transback['data']['authorization_url']  
+            
+            
+            # take record of transactions made
+            paidorder = PaidOrder()
+            paidorder.user = user
+            paidorder.total = total/100
+            paidorder.cart_no = order_num
+            paidorder.payment_code = ref_num
+            paidorder.paid_item = True
+            paidorder.first_name = user.first_name
+            paidorder.last_name = user.last_name
+            paidorder.email = user.email
+            paidorder.save()
+            return redirect(rd_url)
+        return redirect('checkout')
+        #call to paystack done, when transaction is successful is redirected to the callback page.
+ 
+
+
+
+#Thank you page
+def paidorder(request):
+    profile = Profile.objects.get(user__username = request.user.username)
+    #we are trying to empty our cart page after payment as been done.
+    cart = Shopcart.objects.filter(user__username = request.user.username, item_paid=False)
+    for item in cart:
+        item.item_paid = True
+        item.save()
+        
+    context = {
+        'profile':profile
+    }
+    return render(request, 'paidorder.html', context)
+#Thank you page done
+   
+   
+

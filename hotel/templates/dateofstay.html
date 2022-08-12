@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+<section id="dateofstay">
+    <div class="container dateofstay">
+        <div>
+            <img src="{{detail.image1.url}}" class="img-fluid" alt="" loading="lazy">
+        </div>
+        <div>
+            <form action="{% url 'addtocart' %}" method="POST">
+                <div>
+                    <h5 class="card-title mb-4 mt-2 dateofstayh5" >{{detail.name}}</h5>
+                </div>
+            {% csrf_token %}
+                <div class="arrivaldate">
+                    <label for="">Arrival Date: </label>
+                    <input type="date" id="start" name="arrival_date" required>
+                </div>
+                <div class="arrivaldate">
+                    <label for="">Depature Date: </label>
+                    <input type="date" id="start" name="depature_date" required>
+                    <input type="hidden" value="{{detail.id}}" name="dateid">
+                </div>
+                <button class="edit-profile" style="padding-inline: 2rem; margin-right:1rem;">Add Room To Cart</button>
+            </form>
+        </div>
+    </div>
+</section>    
+{% endblock content %}
+    
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}
+
+

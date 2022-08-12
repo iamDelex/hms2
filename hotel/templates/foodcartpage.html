@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block header %}{% include "header.html" %}{% endblock header %}
+
+{% block content %}
+<section id="cartpage">
+    <table class="container table">
+        <thead class="table-bordered text-white">
+            <tr>
+                <th scope="col">Del.</th>
+                <th scope="col">meal</th>
+                <th scope="col">Title</th>
+                <th scope="col">quantity</th>
+                <th scope="col">how_spicey</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody class="table-bordered">
+            {% if cart %}
+                {% for item in cart %}
+                    <tr>
+                        <td>
+                            <form action="{% url 'remove_item' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="deleteitem" value="{{item.id}}">
+                                <button type="submit"><i class="fas fa-trash-alt text-danger" style="cursor: pointer;"></i></button>
+                            </form>
+                        </td>
+                        <td><img loading="lazy" src="{{item.meal.image.url}}" style="width: 3rem; border-radius:2px;"></td>
+                        <td>{{item.meal.title}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.how_spicey}}</td>
+                        <td>{{item.meal.price|mul:item.quantity}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</section>
+
+<section id="cart-total">
+    <div class="cart-total">
+        <div class="container">
+
+        </div>
+        <div class="container">
+            <h4 class="container">MEAL TOTAL PRIZE</h4>
+            <table class="container table mb-4">
+                <tbody class="table-bordered">
+                    <tr>
+                        <th class="text-white">SUB-TOTAL:</th>
+                        <td>£{{subtotal}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-white">VAT(@7.5%):</th>
+                        <td>£{{var}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-white">TOTAL:</th>
+                        <td>£{{total}}</td>
+                    </tr>
+                </tbody>
+            </table>                
+            <a href="{% url 'mealcheckout' %}" class="about-us-btn">Proceed To Checkout <i class="fas fa-credit-card"></i></a>
+        </div>
+    </div>
+</section>
+
+
+<div class="container">
+    <script type="text/javascript">
+        amzn_assoc_tracking_id = "agency0a-20";
+        amzn_assoc_ad_mode = "manual";
+        amzn_assoc_ad_type = "smart";
+        amzn_assoc_marketplace = "amazon";
+        amzn_assoc_region = "US";
+        amzn_assoc_design = "enhanced_links";
+        amzn_assoc_asins = "B095GG31KX";
+        amzn_assoc_placement = "adunit";
+        amzn_assoc_linkid = "291ee0b8d3bdeb845830cc70d4a6bd64";
+        </script>
+        <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
+</div>
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+
+

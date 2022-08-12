@@ -1,0 +1,24 @@
+
+#BOOKINGVIEW
+# class BookingView(FormView):
+#     form_class = BookingForm
+#     template_name= 'availability.html'
+#     def form_valid(self,form):
+#         data = form.cleaned_data
+#         room_list = Room.objects.filter(arrival_date=data['arrival_date'])
+#         available_rooms=[]
+#         for room in room_list:
+#             if check_availability(room, data['depature_date'], data=['depature_date']):
+#                 available_rooms.append(room)
+        
+#         if len(available_rooms)>0:
+#             room = available_rooms[0]
+#             booking = Booking.objects.create(
+#                 user=self.request.user,
+#                 arrival_date=data['arrival_date'],
+#                 depature_date=data['depature_date']
+#             )
+#             booking.save()
+#             return HttpResponse(booking)
+#         else: 
+#             return HttpResponse('All of this Category of rooms are booked')

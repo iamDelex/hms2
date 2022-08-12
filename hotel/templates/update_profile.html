@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+<!-- The Update profile section -->
+<section id="profile">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item"><a href="" style="color: var(--darkorange);">Home</a></li>
+                <!-- <li class="breadcrumb-item"><a href="/index.html" style="color: var(--darkorange);">My Reservations</a></li> -->
+                <li class="breadcrumb-item active" aria-current="page">Update Profile</li>
+            </ol>
+            </nav>
+    </div>
+    <div class="container">
+        <hr>
+        <h4><b style="color: var(--darkorange);">Summary</b></h4>
+        <hr>
+        <div class="container mt-4 mb-4">
+            <a href="{% url 'user_profile' %}">My Profile</a>
+            <a href="{% url 'reservation' %}">My Reservations</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="personalinfo">
+            <i class="fas fa-user-circle"></i>
+            <h5>Personal Information Update.</h5>
+        </div>
+        <form action="{% url 'update_profile' %}" method="POST" class="personal-details">
+        {% csrf_token %}
+            <div>
+                <label for="">Username</label>
+                <p class="text-muted">{{user.username}}</p>
+            </div>
+            <div class="div">
+                <label for="first-name">First Name</label>
+                <p class="text-muted">{{form.first_name}}</p>
+            </div>
+            <div class="div">
+                <label for="first-name">Last Name</label>
+                <p class="text-muted">{{form.last_name}}</p>
+            </div>
+            <div class="div">
+                <label for="address">Address</label>
+                <p class="text-muted">{{form.address}}</p>
+            </div>
+            <div class="div">
+                <label for="state">State</label>
+                <p class="text-muted">{{form.state}}</p>
+            </div>
+            <div class="div">
+                <label for="phone">Phone</label>
+                <p class="text-muted">{{form.phone}}</p>
+            </div>
+            <div class="div">
+                <label for="email">Email</label>
+                <p class="text-muted">{{form.email}}</p>
+            </div>
+            <!-- <button class="edit-profile"> <a href=""><a href="#" class="edit-profile text-white">Update <i class="fas fa-edit"></i></a></a></button> -->
+            <button  class="edit-profile" type="submit">Update</button>
+        </form>
+    </div>
+</section>
+<!-- The Update Profile section done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

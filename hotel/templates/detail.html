@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} | {{detail.name}}{% endblock title %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+
+{% block content %}
+    <!-- The signature section -->
+    <section id="clubsuite">
+      <div class="container-fluid">
+          <h1>{{detail.name}}</h1>
+      </div>
+      <div class="container clubsuite">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img loading="lazy" src="{{detail.image1.url}}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img loading="lazy" src="{{detail.image2.url}}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img loading="lazy" src="{{detail.image3.url}}" class="d-block w-100" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="clubsuite-details">
+          <div class="box1 mb-5">
+            <hr>
+            <h3>{{detail.name}}</h3>
+            <hr>
+            <small style="color: var(--darkorange);">ROOM DESCRIPTION</small>
+            <p>{{detail.room_detail}}</p>
+            <p class="container">
+              {% if detail.discount %}
+                <i class="fas fa-arrow-right" style="color: var(--darkorange);"></i> <del class="text-danger"> <b class="text-dark">Price:</b> {{detail.price|floatformat:2|intcomma}}</del> <br>
+                <i class="fas fa-arrow-right" style="color: var(--darkorange);"></i> <span class="text-success"> <b class="text-dark">Discount:</b> {{detail.discount|floatformat:2|intcomma}}</span>
+              {% else %}
+                <span>Price: {{detail.price|floatformat:2|intcomma}}</span>
+              {% endif %}
+              <!-- <li><b><i class="fas fa-arrow-right" ></i> Price: {{detail.price}}</b></li>
+              <li><b><i class="fas fa-arrow-right" style="color: var(--darkorange);"></i> Discount: {{detail.discount}}</b></li> -->
+            </p>
+            <a href="{% url 'dateofstay' detail.id detail.slug %}" class="about-us-btn">BOOK THIS ROOM NOW</a>
+          </div>
+          
+          <div class="box2">
+            <small style="color: var(--darkorange);">ROOM FEATURES</small>
+            <ul>
+              <li><i class="fas fa-user-friends"></i>DOUBLE KING BED</li>
+              <li><i class="fas fa-mug-hot"></i>BREAKFAST</li>
+              <li><i class="fas fa-fan"></i>AIR CONDITIONING</li>
+              <li><i class="fas fa-wine-glass-alt"></i>MINI BAR</li>
+              <li><i class="fas fa-wifi"></i>WI-FI SERVICE</li>
+              <li><i class="fas fa-car"></i>FREE PARKING</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- The signaturesection done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

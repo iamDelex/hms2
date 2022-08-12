@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The Crossroad Restaurant -->
+      <section id="crossroad-restaurant" class="container">
+        <div class="container-fluid crossroad-restaurant-wrapper">
+            <div class="container crossroad-restaurant">
+                <h1>MEETING ROOMS</h1>
+            </div>
+        </div>
+        <div class="active">
+            <img src="{% static '' %}img/meetingroom.jpg" class="d-block w-100" alt="...">
+            <p>MEETING ROOMS</p>
+        </div>
+        <p>At Travel Tour & Suites we can accommodate meetings of up to 2000 people and provide all the necessary assistance in terms of your technology requirements, food & beverage preferences.</p>
+        <p>A range of audio-visual equipment is available including LCD projectors, overhead projectors, PA systems as well as internet and Wi-Fi connections in all the meeting room types.</p>
+        <p>Teleconferencing, translators, decorators and artistic requirements can also be arranged on request.</p>
+    </section>
+    <!-- The Sky Restaurant done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

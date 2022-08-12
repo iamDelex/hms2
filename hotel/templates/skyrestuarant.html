@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The Sky Restaurant -->
+      <section id="skyrestuarant" class="container">
+        <div class="container-fluid skyrestuarant-wrapper">
+            <div class="container skyrestuarant">
+                <h1>The Sky Restaurant</h1>
+            </div>
+        </div>
+        <div class="active">
+            <img src="{% static '' %}img/sky-restaurant-img-2.jpg" class="d-block w-100" alt="...">
+            <p>The Sky Restaurant</p>
+        </div>
+        <p>Situated at the tallest Penthouse of Travel Tour Hotel, the Sky Restaurant has a 'wow' factor that is hard to dispute. It's about the highest restaurant in the city of Lagos and has a picturesque view of both the city and the Atlantic Ocean.</p>
+        <p>It offers Asian fusion menu delicacies! Get pampered by our award winning chef as he performs his art with a fusion of culinary traditions that combines different cuisines from the south-eastern/Asian region into a single eating experience. It seats 130 people dining</p>
+        <p>Open Daily for:</p>
+        <div class="container">
+            <ul>
+                <li><b>Lunch:</b> 12noon – 3pm (excluding Sundays)</li>
+                <li><b>Dinner:</b> 6pm -10.30pm</li>
+                <li><b>Bar:</b> 12noon-1am</li>
+            </ul>
+        </div>
+        <p>For reservations, please call: +2348119721424 <span style="color:var(--darkorange)"><b>|</b></span> +2349128842952</p>
+    </section>
+    <!-- The Sky Restaurant done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+   

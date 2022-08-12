@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load humanize %}
+{% load static %}
+
+{% block header %}{% include "header.html" %}{% endblock header %}
+
+{% block content %}
+<section id="checkout">
+    <div class="container-fluid checkout" style="background-color:var(--darkorange)">
+        <h3 class="text-center text-white">Room Checkout</h3>
+      </div>
+      <div class="container mt-5 mb-5">
+        <h2>Billing Information</h2>
+      </div>
+      <div class="container">
+      <div class="checkout-details ">
+            <form action="{% url 'placeorder' %}" method="POST">
+            {% csrf_token %}
+              <div class="form-row">
+                  <div class="form-group mr-3">
+                    <label for="Text">First Name</label>
+                    <input type="text" name="first_name" value="{{user_profile.first_name}}" class="form-control" id="Text" placeholder="First Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="Text">Last Name</label>
+                    <input type="text" name="last_name" value="{{user_profile.last_name}}" class="form-control" id="Text" placeholder="Last Name">
+                  </div>
+              </div>
+              <div class="form-row">
+                  <div class="form-group mr-3">
+                    <label for="email">Email Address</label>
+                    <input type="email"  name="email" value="{{user_profile.user.email}}" class="form-control" id="Text" placeholder="Email Address">
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" name="phone" value="{{user_profile.phone}}" class="form-control" id="Text" placeholder="Phone Number">
+                    <input type="hidden" name="get_total" value="{{total}}">
+                  </div>
+              </div>
+              <p class="text-danger"><i><i class="fas fa-exclamation-triangle"></i> Please Note That You Won't Be Charge From Your Real Bank Account, This is A For Practice Purpose.<i class="fas fa-exclamation-triangle"></i></i></p>
+              <button type="submit" class="edit-profile" style="padding-inline: 2rem; margin-right:1rem;">Pay Now <i class="fas fa-credit-card"></i></button>
+              <!-- <button type="submit" class="btn btn-outline-success">Place Order</button> -->
+            </form>
+          
+          <div class=""> 
+            <div class="container">
+              <table class="container table">
+                <thead class="table-bordered text-white">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody class="table-bordered">
+                    {% if cart %}
+                        {% for item in cart %}
+                            <tr>
+                                <td>{{item.room.name}}</td>
+                                <td>{{item.no_day}}</td>
+                                <td>
+                                    {% if item.room.discount %}
+                                        {{item.room.discount|mul:item.no_day}}
+                                    {% else %}
+                                        {{item.room.price|mul:item.no_day}}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            </div>
+            <div class="container">
+              <div class="cart-total">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><b class="text-success">TOTAL</b></td>
+                        <td scope="row" class="text-success"><b>£{{total|floatformat:2|intcomma}}</b></td>
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+          <div>
+            <div class="py-3">
+              <img src="{% static '' %}img/Safecheckout.png" style="width: 20rem;" >
+            </div>
+            <div  class="mb-3">
+              <small class="text-muted"><i>Your personal data will be used to book your room, support your experience throughout this website, and for other purposes described in our privacy policy.</i></small>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+
+

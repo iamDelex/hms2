@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The Login section -->
+      <section id="profile">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                  <li class="breadcrumb-item"><a href="/index.html" style="color: var(--darkorange);">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">My Reservations</li>
+                </ol>
+              </nav>
+        </div>
+        <div class="container">
+            <hr>
+            <div class="container mt-4 mb-4">
+              <a href="{% url 'user_profile' %}">My Profile</a>
+              <a href="">Booking History</a>
+            </div>
+            <hr>
+        </div>
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-4">
+                  <div class="list-group" id="" role="">
+                    <a class="list-group-item list-group-item-action text-white" style="background-color:var(--darkorange)" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="coming-event">BOOKING HISTORY</a>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                      {% if book %}
+                        {% for item in book %}
+                          <ul>
+                            <li>
+                              <i class="fas fa-arrow-right"></i>Dear {{item.user.username}}, You booked {{item.room}} from {{item.check_in}} to {{item.check_out}}.
+                            </li>
+                          </ul>
+                        {% endfor %}                      
+                      {% endif %}                                                                
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <p >
+                <h5 class="text-danger">Mail Our Reservation Desk to Cancel Your Reservation Just Incase :</h5>
+                <i class="fas fa-envelope mr-2"></i><a href="mailto:abbeymichael123@gmail.com">EMAIL</a>
+            </p>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

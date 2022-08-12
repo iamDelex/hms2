@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %} | {{single.name}}{% endblock title %}
+    
+
+<!-- header section -->
+{% block header %}{% include "header.html" %}{% endblock header %}
+<!-- header section done -->
+
+<!-- banner section -->
+<!-- banner section done -->
+
+<!-- content section -->
+{% block content %}
+    <div class="container addtocart mt-5 mb-5">
+        <div class="img-holder mb-4">
+            <img src="{{meal.image.url}}" class="card-img-top ">
+        </div>
+        <div class="thedetails">
+            <h2 class="card-title mb-3 text-dark font-weight-bolder">{{meal.title}}</h2>
+            <p class="card-text mb-4 text-success">
+                {% if meal.discount %}
+                    <del class="text-danger">{{meal.price|floatformat:2|intcomma}}</del>
+                    <span class="text-success">{{meal.discount|floatformat:2|intcomma}}</span>
+                {% else %}
+                    <span>{{meal.price|floatformat:2|intcomma}}</span>
+                {% endif %}
+            </p>
+            <form action="{% url 'mealcart' %}" method="POST">
+            {% csrf_token %}
+                <label for="inputGroupSelect02"> How Spicy ?</label>
+                <div class="more">
+                    <p class="text-muted"><i>Kindly confirm to us how spicey you want each meal to be.</i></p>
+                    <input type="text" name="how_spicey" placeholder="How Spicey ?">
+                </div> 
+                <input type="number" name="quantity" value="1" min="{{meal.min_order}}" max="{{meal.max_order}}" placeholder="Quantity">
+                <input type="hidden" value="{{meal.id}}" name="mealid">
+                <button type="submit" class="edit-profile">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+<!-- content section done -->
+
+<!-- footer section  -->
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+<!-- footer section done -->
+    
+
+    <!-- box1 -->
+    <!-- <div class="container-fluid mt-4 mb-4">
+        <h1 class="text-center mb-4">{{meal.meal}}</h1>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 w-25">
+                <h4 class="pb-5">Build Website with WIX</h4>
+                <div class="tenor-gif-embed" data-postid="13264626" data-share-method="host" data-aspect-ratio="1.14695" data-width="100%"><a href="https://tenor.com/view/wix-see-first-wix-comments-wix-see-first-wix-facebook-gif-13264626">Wix See First GIF</a>from <a href="https://tenor.com/search/wix-gifs">Wix GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 w-50">
+                <div class="card w-100">
+                    <img src="{{meal.image.url}}" class="card-img-top w-100 mt-5 mb-3">
+                    <div class="card-body text-center mb-4">
+                        <h5 class="card-title mb-3 text-white font-weight-bolder">{{meal.meal}}</h5>
+                        <p class="card-text mb-4 text-success">
+                            {% if meal.discount %}
+                                <del class="text-danger">{{meal.price|floatformat:2|intcomma}}</del>
+                                <span class="text-success">{{meal.discount|floatformat:2|intcomma}}</span>
+                            {% else %}
+                                <span>{{meal.price|floatformat:2|intcomma}}</span>
+                            {% endif %}
+                        </p>
+                        <p class="card-text mb-4 text-success">{{meal.time}}</p>
+                    </div>
+                </div>
+            </div>
+            <form action="{% url 'addtocart' %}" method="POST" class="mt-5">
+                {% csrf_token %}
+                    <div>
+                        <label for="">Qty</label>
+                        <input type="number" name="quantity" id="" value="1" min="{{meal.min_order}}" max="{{meal.max_order}}">
+                        <input type="hidden" value="{{meal.id}}" name="mealid">
+                    </div>
+                    <div>
+                        <div>
+                            <p class="card-text mb-4 text-success">Available Spices :{{meal.spicy}}</p>
+                            <label for="inputGroupSelect02"> How Spicy ?</label>               
+                        </div>
+                        <select name="spicy" class="custom-select" id="inputGroupSelect02">
+                            <option selected>Choose...</option>
+                            <option value="Not Spicey">Not Spicey</option>
+                            <option value="Mild">Mild</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hot">Hot</option>
+                            <option value="Extra Hot">Extra Hot</option>
+                        </select>
+                    </div>
+                    <div class="more">
+                        <h6>Kindly confirm to us how spicey you want each meal to be.</h6>
+                        <input type="text" name="how_spicey">
+                    </div>    
+                    <button type="submit" class="btn btn-success">Add to cart</button>
+                </form>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 w-25">
+                <div class="tenor-gif-embed" data-postid="14693464" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/soda-bebida-coke-cocacola-victorinosuazo-gif-14693464">Soda Bebida Sticker</a>from <a href="https://tenor.com/search/soda-stickers">Soda Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                <div class="tenor-gif-embed" data-postid="18581932" data-share-method="host" data-aspect-ratio="1.33891" data-width="100%"><a href="https://tenor.com/view/coca-cola-crushing-cans-crushed-cans-soda-coke-gif-18581932">Coca Cola Crushing Cans GIF</a>from <a href="https://tenor.com/search/coca+cola-gifs">Coca Cola GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </div>
+        </div>
+    </div> -->

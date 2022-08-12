@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+<!-- paidorder section done-->
+<section id="paidorder">
+    <div class="container paidorder">
+        <div class="inner-paidorder">
+            <i class="fas fa-check-circle"></i>
+            <p>Your Payment Is Done Successfully.</p>
+            <p>Transaction ID: {{paid.id}}</p>
+            <p class="mb-4">Thank You {{paid.first_name|title}} for your patronage, expect excellent service delivery.</p>
+            <a href="{% url 'index' %}" class="">Back To Home</a>
+            <a href="https://wa.link/cnzd93">Have a Quick Chat With Our Customer Service</a>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

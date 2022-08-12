@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The Crossroad Restaurant -->
+      <section id="crossroad-restaurant" class="container">
+        <div class="container-fluid crossroad-restaurant-wrapper">
+            <div class="container crossroad-restaurant">
+                <h1>GRAND BALLROOM</h1>
+            </div>
+        </div>
+        <div class="active">
+            <img src="{% static '' %}img/Events_TheGrandBallroom_Gallery_SlideshowGallery_3.jpg" class="d-block w-100" alt="...">
+            <p>GRAND BALLROOM</p>
+        </div>
+        <p>For your banqueting needs, our “Grand Ballroom” which sits 350 people for dinner is ideal and comes equipped with state-of-the-art visual and audio equipment. It can also be divided into smaller rooms as required.</p>
+        <p>These have been excellently put together with you (the conference organizer) in mind.</p>
+    </section>
+    <!-- The Sky Restaurant done -->
+
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

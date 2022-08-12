@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The Crossroad Restaurant -->
+      <section id="crossroad-restaurant" class="container">
+        <div class="container-fluid crossroad-restaurant-wrapper">
+            <div class="container crossroad-restaurant">
+                <h1>Crossroads Restaurant & Bar</h1>
+            </div>
+        </div>
+        <div class="active">
+            <img src="{% static '' %}img/crossroads-restaurant-3.jpg" class="d-block w-100" alt="...">
+            <p>Crossroad Restaurant</p>
+        </div>
+        <p>Nigeria’s leading Tex-Mex Restaurant and Bar in the heart of the city! Crossroads brings you a variety of traditional Mexican and Tex-Mex Cuisine. Serving tacos, enchiladas, burritos, our signature hot plate fajitas and more. Crossroads currently has the longest bar in Lagos and offers an array of exotic alcoholic beverages..</p>
+        <p>It is an atmosphere for great music, the vibrant foodie and margarita lover. We bring you the perfect Nightlife atmosphere within the confines of the Hotel. Nightlife activities include:</p>
+        <p>Open Daily for:</p>
+        <div class="container">
+            <ul>
+                <li><b>Wednesdays:</b> TexMex Night with Unlimited Tacos STARTS 7PM</li>
+                <li><b>Thursdays:</b> Snap It, Sip It, Post It Thursdays Starts 7pm</li>
+                <li><b>Fridays:</b>Tequi Buzz Friday with Unlimited Tequila (8pm – 11pm)</li>
+            </ul>
+        </div>
+        <div class="container">
+            <b>Opening Hours:</b>
+            <ul>
+                <li>Monday to Sunday FROM 6PM</li>
+            </ul>
+        </div>
+    </section>
+    <!-- The Sky Restaurant done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}

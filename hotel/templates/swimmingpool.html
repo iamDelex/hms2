@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The Crossroad Restaurant -->
+      <section id="crossroad-restaurant" class="container">
+        <div class="container-fluid crossroad-restaurant-wrapper">
+            <div class="container crossroad-restaurant">
+                <h1>SWIMMING POOL</h1>
+            </div>
+        </div>
+        <div class="active">
+            <img src="{% static '' %}img/swimmingpool.jpg" class="d-block w-100" alt="...">
+            <p>SWIMMING POOL</p>
+        </div>
+        <p>Additional perks of being an in-house guest is to enjoy a day or night time swim. Access to the pool for outside guests are at an additional cost.</p>
+        <p><b>Opening Times:</b> Monday – Sunday (8am – 8pm)</p>
+    </section>
+    <!-- The Sky Restaurant done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+    

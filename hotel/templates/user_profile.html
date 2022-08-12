@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+
+{% block content %}
+    <!-- The Login section -->
+    <section id="profile">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                  <li class="breadcrumb-item"><a href="{% url 'index' %}" style="color: var(--darkorange);">Home</a></li>
+                  <!-- <li class="breadcrumb-item"><a href="/index.html" style="color: var(--darkorange);">My Reservations</a></li> -->
+                  <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                </ol>
+              </nav>
+        </div>
+        <div class="container">
+            <hr>
+            <h4><b style="color: var(--darkorange);">Summary</b></h4>
+            <hr>
+            <div class="container mt-4 mb-4">
+                <a href="{% url 'user_profile' %}">My Profile</a>
+                <a href="{% url 'reservation' %}">My Reservations</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="personalinfo">
+                <i class="fas fa-user-circle"></i>
+                <h5>Personal Information</h5>
+            </div>
+            <form action="" class="personal-details">
+                <div>
+                    <label for="">Username</label>
+                    <p class=""style="color: var(--darkorange);">{{user.username}}</p>
+                </div>
+                <div class="div">
+                    <label for="first_name">First Name</label>
+                    <p class=""style="color: var(--darkorange);">{{user_profile.first_name}}</p>
+                </div>
+                <div class="div">
+                    <label for="last_name">Last Name</label>
+                    <p class=""style="color: var(--darkorange);"> {{user_profile.last_name}}</p>
+                </div>
+                <div class="div">
+                    <label for="address">Address</label>
+                    <p class="" style="color: var(--darkorange);">{{user_profile.address}}</p>
+                </div>
+                <div class="div">
+                    <label for="state">State</label>
+                    <p class=""style="color: var(--darkorange);"> {{user_profile.state}}</p>
+                </div>
+                <div class="div">
+                    <label for="phone">Phone</label>
+                    <p class=""style="color: var(--darkorange);"> {{user_profile.phone}}</p>
+                </div>
+                <button class="edit-profile"> <a href=""><a href="{% url 'update_profile' %}" class="edit-profile text-white">Edit Profile <i class="fas fa-edit"></i></a></a></button>
+                
+
+                <div class="email&psd mt-3">
+                    <i class="fas fa-envelope"></i>
+                    <h5>Email and Password </h5>
+                </div>
+                <div>
+                    <div class="mt-3">
+                        <label for="email">Email</label>
+                        <p class=""style="color: var(--darkorange);">{{user_profile.email}}</p>
+                    </div>
+                    <div>
+                        <label for="password"> Password</label>
+                        <p class="text-muted">***********</p>
+                        <button class="edit-profile"> <a href=""><a href="{% url 'update_password' %}" class="edit-profile text-white">Update Password</a></a></button>
+                        <!-- <button  class="edit-profile" type="submit">Update Password</button> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- The Login section done -->
+{% endblock content %}
+    
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+    

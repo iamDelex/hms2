@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}{% include "header.html" %}{% endblock header %}
+
+{% block content %}
+<section id="rooms">
+    <div class="container-fluid rooms-heading mt-5">
+        <h2 class="text-center">ALL ROOMS</h2>
+    </div>
+    <div class="container">
+        <div class="roomswrapper" data-aos="fade-up" data-aos-duration="3000">
+            {% if rooms %}
+                {% for room in rooms %}
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{room.image1.url}}" alt="" class="img-fluid" loading="lazy">
+                            <h5 class="card-title text-center mb-4 mt-2" style="color: var(--darkorange);">{{room.name}}</h5>
+                            <a href="{% url 'detail' room.id room.slug %}" class="card-link">Room Details</a>                        
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+

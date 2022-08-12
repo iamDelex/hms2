@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block title %} | {{single.name}}{% endblock title %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+      <!-- The signature section -->
+      <section id="signature">
+        <div class="container-fluid">
+            <div class="signature-heading-caption">
+                <h1>{{single.name}}</h1>
+            </div>
+            <div class="container signature">
+                <h4><i>{{single.name}}</i></h4>
+                <p>Caring comes easily to those of us who are privileged to cater to you at Travel Tour Signature. The vibrant colours of the furnishing indulges you. Our suites embody elegance that expresses the art of simple luxury; one whose soft warm embrace can’t wait to relax you. With a bold contemporary style, the rooms are tastefully designed with the professional executive in mind.</p>
+                <strong>Overview:</strong>
+                <ul class="container">
+                    <li>11 Suites</li>
+                    <li>16 Club Suites</li>
+                    <li>5 Premium Suites</li>
+                    <li>10 Signature Suites</li>
+                    <li>1 Presidential Suite</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="signature-rooms">
+        <div class="mb-5">
+            <div class="container signature-rooms">                  
+                {% if variety %}
+                    {% for vr in variety %}
+                        <!-----------signature Room Picture ------------->
+                        <img src="{{vr.image1.url}}" class="img-fluid" alt="">
+                        <div class="box mb-5">
+                            <!--------- signature Room Captions ---------->
+                            <h5 style="color: var(--darkorange);"><b>{{vr.name}}</b></h5>
+                            <p>{{vr.room_detail}}</p>
+                            <!-- -------- Time Zone -------------->
+                            <div class="d-flex inner-box mb-4">
+                                <small class="mr-5"><b>Room:41.44 M2</b></small>
+                                <small><b>BATHROOM: 10.11 M2</b></small>
+                            </div>
+                            <!------ view details buttons for signature room -->
+                            <div>
+                                <a href="{% url 'detail' vr.id vr.slug %}" class="about-us-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>  
+                    {% endfor %}
+                {% endif %}
+            </div>            
+        </div>
+    </section>
+    <!-- The signaturesection done -->
+{% endblock content %}
+
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
